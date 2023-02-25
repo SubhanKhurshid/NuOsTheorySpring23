@@ -39,9 +39,10 @@ nano HelloWorld/HelloWorld.c
 
 - Write the following code in it:
 
-#include<linus/syscall.h> 
-SyscallDefine0(HelloWorld) {
-printk("Hello world.\n");
+- #include <linux/kernel.h>
+asmlinkage long sys_hello(void)
+{
+printk("Hello world\n");
 return 0;
 }
 
@@ -99,9 +100,9 @@ Then if an error occurs which says make bzImage
 
 ## Results:
 
-- nano report.c
+- nano userspace.c
 - Paste the code
-#include <linux/kernel.h>
+- #include <linux/kernel.h>
 #include <sys/syscall.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -126,9 +127,23 @@ printf("System call worked \n");
 }
 return 0;
 }
-Compile and run the program
-gcc -o report report.c
-./report
-Dmesg
+
+## Following are the screenshots attached of the work explained above:
+
+- The file containing the code:
+
+<img width="724" alt="he1" src="https://user-images.githubusercontent.com/105592966/221379959-0aa78a82-92fa-4d70-acdc-704aeac34f3e.PNG">
+
+- RollNo "21k-3096" being displayed using uname -r command:
+
+<img width="364" alt="he2" src="https://user-images.githubusercontent.com/105592966/221379998-98dae5a3-d730-4dea-a77f-3057642d2392.PNG">
+
+- Finally when, we compile the using the command "gcc userspace.c" and execute it by typing "./a.out". If it return 0, it means that our code has compilled successfully and the system call is working fine. Finally, we run "dmesg" to see the kernel messages and we will find "Hello World" written at the end of it
+
+<img width="374" alt="he3" src="https://user-images.githubusercontent.com/105592966/221380322-72458bc6-456a-43ee-955c-2a48330a827e.PNG">
+
+
+<img width="365" alt="he4" src="https://user-images.githubusercontent.com/105592966/221380329-c6d92756-a267-4c19-8704-2adcf30ea762.PNG">
+
 
 
